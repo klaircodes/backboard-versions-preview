@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Backboard · 1–12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root { --ground: #fff; --panel: #f1f1ef; --ink: #161514; --ink-3: #76736c; --flame: #ff5a2c; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 24px 64px; background: var(--ground); color: var(--ink); font-family: Manrope, system-ui, sans-serif; }
+  .grid { max-width: 1180px; margin: 0 auto; display: grid; gap: 34px 26px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px)  { .grid { grid-template-columns: 1fr; } }
+  a { display: block; text-decoration: none; color: inherit; }
+  .no { font-size: 11px; letter-spacing: .3em; color: var(--ink-3); }
+  a:hover .no { color: var(--flame); }
+  .shot { margin-top: 10px; aspect-ratio: 16/10; overflow: hidden; background: var(--panel); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .7s cubic-bezier(.16,1,.3,1); }
+  a:hover .shot img { transform: scale(1.03); }
+  @media (prefers-reduced-motion: reduce) { .shot img { transition: none; } }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const S = 'https://klaircodes.github.io/backboard-site-preview/'
+const E = 'https://klaircodes.github.io/backboard-v8-preview/'
+/* an array, not an object: integer-like keys ('10','11','12') would sort themselves first */
+const VERSIONS = [
+  ['01', `${S}?v=1`], ['02', `${S}?v=2`], ['03', `${S}?v=3`], ['04', `${S}?v=4`],
+  ['05', `${S}?v=5`], ['06', `${S}?v=6`], ['07', `${S}?v=7`], ['08', `${E}?v=8`],
+  ['09', 'https://klaircodes.github.io/backboard-v9-preview/'],
+  ['10', `${E}?v=10`], ['11', `${E}?v=11`],
+  ['12', 'https://klaircodes.github.io/backboard-v12-preview/'],
+]
+document.getElementById('grid').innerHTML = VERSIONS.map(([n, url]) => `
+  <a href="${url}" target="_blank" rel="noreferrer">
+    <span class="no">${n}</span>
+    <span class="shot"><img loading="lazy" src="shots/v${n}.webp" alt="Version ${n}" /></span>
+  </a>`).join('')
+</script>
+</body>
+</html>
